@@ -1,5 +1,8 @@
 from fastapi import FastAPI
 
+# run with
+# production mode: uvicorn main:app
+# debug mode: uvicorn main:app --reload
 app = FastAPI()
 
 

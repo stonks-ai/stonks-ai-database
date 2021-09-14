@@ -11,18 +11,22 @@ class AlphaVantageScrapper(Scrapper):
         self.apikey = apikey
         self.session = aiohttp.ClientSession()
         self.url = 'https://www.alphavantage.co/'    # alpha vantage
+        self.unit_map = {
+            'm': 'min',
+        }
         
     async def scrape(self, ticker, date_from, date_to, interval):
-        # https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=demo
+        # https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&apikey=demo
         endpoint = reduce(urljoin, [self.url, 'query'])
         query = {
-            'function': 'TIME_SERIES_DAILY',
+            'function': 'TIME_SERIES_DAILY_ADJUSTED',
             'symbol': ticker,
-            'apikey': self.apikey
+            'apikey': self.apikey,
         }
         resp = await self._request(endpoint, query)
         return resp
-                
+
+        
         
 if __name__ == '__main__':
     async def main():

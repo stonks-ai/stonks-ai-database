@@ -30,4 +30,9 @@ class PolygonIOScrapper(Scrapper):
             'apikey': self.apikey,
         }
         resp = await self._request(endpoint, query)
-        return resp
+        data = zip(*[[resp['ticker'], resp['results'][i]['t'], resp['results'][i]['o'], 
+                      resp['results'][i]['c'], resp['results'][i]['h'], 
+                      resp['results'][i]['l'], resp['results'][i]['v']] for i in range(resp['queryCount'])])
+        ticker, timestamp, open_, close, high, low, volumn = data
+        datetime_ = list(map(lambda x: datetime.fromtimestamp(int(x / 1000)).__str__(), timestamp))
+        return ticker, datetime_, open_, close, high, low, volumn

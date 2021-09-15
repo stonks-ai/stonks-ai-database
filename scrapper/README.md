@@ -30,8 +30,7 @@ def shutdown_event():
 
 
 ## API
-
-* 
+ 
 ```python
 async def scrape(self, ticker, date_from, date_to, interval):
 ```
